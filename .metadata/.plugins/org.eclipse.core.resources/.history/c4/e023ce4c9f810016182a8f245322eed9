@@ -1,0 +1,17 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class test {
+	public static void main(String [] args){
+Queue ct = new LinkedList();
+ct.add("aaa");
+ct.add("b");
+ct.add("c");
+
+String x = (String) ct.poll();
+ct.remove();
+System.out.println(x);
+System.out.println(x);
+
+	}
+}

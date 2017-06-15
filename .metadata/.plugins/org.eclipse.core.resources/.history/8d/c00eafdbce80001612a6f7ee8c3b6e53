@@ -1,0 +1,65 @@
+
+public class test {
+public static void main(String [] args){
+	boolean[] test = new boolean[4];
+	for (int i =0;i<4;i++){
+		test[i]=false;
+		System.out.print(test[i] + " ");
+		
+	}
+
+	System.out.println("\n Now : ");
+
+	boolean[] test2 = new boolean[4];
+	for (int i = 0;i<4;i++){
+		int k = i-1;
+		
+		for(int j=i;j<4;j++){
+			
+			if (j == 0){
+				for(int m=0;m<4;m++){
+					test2[j] = !test[j];
+					test2[m] = test[m];
+				}
+				for (int z=0;z<4;z++){
+					System.out.print(test2[z] + " ");
+				}
+				System.out.println("\n 1st ");
+			}
+			
+			if (j == 1){
+				test2[k]=!test[k];
+				for(int m=j;m<4;m++){
+					test2[j] = !test[j];
+					test2[m] = test[m];
+				}
+				for (int z=0;z<4;z++){
+					System.out.print(test2[z] + " ");
+				}
+				System.out.println("\n  ");
+				
+				
+			}
+			
+			if(j != 0 && j != 1 ){
+				for(int x=0;x<k;x++){
+					test2[x] = test[x];
+				}
+				test2[k] = !test[k];
+				for(int m=j;m<4;m++){
+					test2[j] = !test[j];
+				}
+				for (int z=0;z<4;z++){
+					System.out.print(test2[z] + " ");
+					}
+				System.out.println("\n ");
+			}
+			
+			k++;
+		}
+
+	}
+
+	
+}
+}

@@ -1,0 +1,9 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class test {
+Queue c = new LinkedList();
+c.add("s");
+
+
+}

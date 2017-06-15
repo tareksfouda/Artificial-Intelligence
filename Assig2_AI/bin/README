@@ -1,0 +1,24 @@
+The main method is Nqueens.java. This is the file you have to run to get an output.
+By deffault the N of queens is 8. If you want to change it to 16, you have to carefully follow these steps.
+
+* In HillClimbing.java line 4: Change N to be equal to 16
+* In Nqueens.java Change line 42 to be 		Queen[] initial = new Queen[16];
+* In Nqueens.java change line 63 to be		for(int i=0; i<16; i++){
+*In Nqueens.java change line 64 to be		initial[i] = new Queen(gen.nextInt(16),i);	
+
+* In Queen.java   change method move down at line 31 to be    	public void moveDown(int cells){
+																this.row = this.row+cells;
+		
+																//bound check/reset
+																	if(row>15 && row%15!=0){
+																		row=(row%15)-1;
+																							}
+																else if(row>15 && row%15==0){
+																		row=15;
+																							}
+																								}  		
+																								
+									Or simply replace every 7 with a 15 in this method.\
+									
+									
+* In state.java replace line 4 with N=16							

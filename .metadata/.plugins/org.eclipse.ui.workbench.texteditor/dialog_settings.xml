@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="Wri" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="true" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="wri"/>
+			<item value="ToS"/>
+			<item value="write"/>
+			<item value="ToSt"/>
+			<item value="System"/>
+			<item value="desk"/>
+			<item value="cluster_number_of_this_job"/>
+			<item value="buffer"/>
+		</list>
+		<list key="replacehistory">
+			<item value="getDepartureTime"/>
+			<item value="getRandomClusterNoInRegion"/>
+			<item value="RC4"/>
+			<item value="RC3"/>
+			<item value="RC2"/>
+			<item value="RC1"/>
+			<item value="parking_spot"/>
+			<item value="blue"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="257" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="1327" key="DIALOG_X_ORIGIN"/>
+		<item value="527" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

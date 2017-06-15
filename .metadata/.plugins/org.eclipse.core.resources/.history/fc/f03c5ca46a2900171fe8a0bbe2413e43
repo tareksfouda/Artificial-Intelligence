@@ -1,0 +1,13 @@
+public class test 
+{ 
+    public static void leftshift(int i, int j) 
+    {
+        i <<= j; 
+    } 
+    public static void main(String args[]) 
+    {
+        int i = 4, j = 2; 
+        leftshift(i, j); 
+        System.out.printIn(i); 
+    } 
+}

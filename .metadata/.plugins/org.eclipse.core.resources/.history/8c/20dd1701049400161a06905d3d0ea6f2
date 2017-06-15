@@ -1,0 +1,36 @@
+
+public class crossword {
+
+	public static void main(String[] args){
+		String [] cell1Across = {"HOSES", "LASER", "SAILS", "SHEET", "STEER"};
+		String [] cell2Down = {"HOSES", "LASER", "SAILS", "SHEET", "STEER"};
+		String [] cell3Down = {"HOSES", "LASER", "SAILS", "SHEET", "STEER"};
+		String [] cell4Across = {"HEEL", "HIKE", "KEEL", "KNOT", "LINE"};
+		String [] cell5Down = {"HEEL", "HIKE", "KEEL", "KNOT", "LINE"};
+		String [] cell6Down = {"AFT", "ALE", "EEL", "LEE", "TIE"};
+		String [] cell7Across = {"AFT", "ALE", "EEL", "LEE", "TIE"};
+		String [] cell8Across = {"HOSES", "LASER", "SAILS", "SHEET", "STEER"};
+
+		
+		
+		
+		
+		
+		
+		variable cell1across= new variable(cell1Across,1);
+		variable cell2down= new variable(cell2Down,2);
+		variable cell3down= new variable(cell3Down,3);
+		variable cell4across= new variable(cell4Across,4);
+		variable cell5down= new variable(cell5Down,5);
+		variable cell6down= new variable(cell6Down,6);
+		variable cell7across= new variable(cell7Across,7);
+		variable cell8across= new variable(cell8Across,8);
+		
+		
+		int domainlength = 5;
+
+		
+		
+	}
+	
+}

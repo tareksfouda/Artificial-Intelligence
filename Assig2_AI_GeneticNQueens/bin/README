@@ -1,0 +1,5 @@
+The Genetic algorithm for finding solution for N Queens problem is consisted of only one file called NQueen1.java
+
+
+You can control the size of N, whether 8 queens or 16 queens by changing the value of N in line 20.
+Run the code and you will find the number of solutions you got after 100 runs.

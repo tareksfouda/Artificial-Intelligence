@@ -1,0 +1,162 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class state {
+	//inst variables
+	boolean[] sides;
+	boolean flashlight; // 0 left and 1 right
+	int[] constantTime;
+	static int count;
+	int parentid;
+	int id;
+	int costtohere;
+	String whomoved = "";
+	
+	//empty constructor
+	state(){
+		parentid = 0;
+		flashlight = false;
+		count ++;
+		this.id=count;
+		this.costtohere = 0;
+		}
+	
+	// constructor with parameters
+	state(boolean[] sides, boolean flashlight, int[] constantTime, int parentid, int costtohere){
+		count++;
+		this.sides = new boolean[sides.length];
+		this.constantTime = new int[sides.length];
+		for(int i=0;i<sides.length;i++){
+			this.sides[i] = this.sides[i];
+			this.constantTime[i] = constantTime[i];
+		}
+		
+		this.id =count;
+		this.parentid =parentid;
+		this.flashlight = flashlight;
+		this.costtohere=costtohere;
+		
+	}
+	
+	// tostring
+	public String toString(){
+		String temp = "";
+		for(int k= 0;k<this.sides.length;k++){
+			 temp = temp + this.sides[k] + " , "; 
+			 }
+		String result = temp + " flashlight = " + this.flashlight + " This state has ID = " + this.id + " , PARENT ID IS --> " + this.parentid + " and the cost to this state from root = "+ this.costtohere + " minutes , " + this.whomoved;
+		return result;
+	}
+	
+	
+
+	// main method
+	public static void main(String[] args){
+		boolean[] rootarray = {true,true,true,true};
+		boolean[] destarray = {true,true,true,true};
+		boolean flashlight = true;
+		boolean destflashlight = true;
+		int[] constTime = new int[]{1,2,5,10};
+		int parentid=0;
+		int costtohere=0;
+		Queue<state> fringe = new LinkedList();
+		state root= new state(rootarray,flashlight,constTime,parentid,costtohere);
+		state destination= new state(destarray,destflashlight,constTime,-1,-1);
+		fringe.add(root);
+		movebfs(root,destination,fringe);
+
+	}
+
+
+	public static void movebfs(state check,state destination, Queue<state> fringe) {
+		state root = fringe.remove();
+		boolean flag=true;
+		if(root.flashlight == true){
+			for(int ui =0;ui<root.sides.length;ui++){
+				if(root.sides[ui] == false){
+					flag = false;
+					System.out.println("sss");
+				}
+			}
+			if(flag){
+				System.out.println("root is destination");
+			}
+		}
+		else{
+		// handling one crosser
+		int index = 0;
+		int size = root.sides.length;
+		for(int i=0;i<size;i++){
+			
+			state newstate= new state(root.sides,root.flashlight,root.constantTime,root.id,0);
+			//copy node
+			newstate.flashlight=root.flashlight;
+			for(int p=0;p<size;p++){
+				newstate.sides[p]=root.sides[p];
+			}
+			for(int p=0;p<size;p++){
+				newstate.constantTime[p]=root.constantTime[p];
+			}
+			//endofcopying
+			for(int j =i;j<size;j++){
+            if(newstate.sides[j] == newstate.flashlight ){
+            	newstate.sides[j]= !root.sides[j];
+            	newstate.flashlight =!root.flashlight;
+            	newstate.costtohere = root.costtohere + newstate.constantTime[j];
+            	index = j;
+     	       if (newstate.flashlight == true){
+     		       newstate.whomoved = newstate.constantTime[index] + " goes across in " + newstate.constantTime[index] + " minutes. ";
+     		       }
+     		       if (newstate.flashlight == false){
+     		       newstate.whomoved = newstate.constantTime[index] + " goes back in " + newstate.constantTime[index] + " minutes. ";
+     		       }
+            }
+			}
+	       System.out.println(newstate.toString());
+
+	       
+		                         }
+		
+		
+		
+		//handling two crossers
+	
+		
+		for(int i=0;i<size-1;i++){
+			for (int j=i+1;j<size;j++){
+				//create and copy
+				state newstate= new state(root.sides,root.flashlight,root.constantTime,root.id,0);
+				//copy node
+				newstate.flashlight=root.flashlight;
+				for(int p=0;p<size;p++){
+					newstate.sides[p]=root.sides[p];
+				}
+				for(int p=0;p<size;p++){
+					newstate.constantTime[p]=root.constantTime[p];
+				}
+				//endofcopying
+				if(newstate.sides[i]== newstate.flashlight && newstate.sides[j] == newstate.flashlight){
+	            	newstate.sides[i]= !root.sides[i];
+	            	newstate.sides[j]= !root.sides[j];
+	            	newstate.flashlight =!root.flashlight;
+	            	newstate.costtohere = root.costtohere + newstate.constantTime[j];
+	            	index = j;
+	            	int firstperson = i;
+	            	int secondperson = j;
+	      	       if (newstate.flashlight == true){
+	      		       newstate.whomoved = newstate.constantTime[firstperson] + " and " + newstate.constantTime[secondperson] +" go across in " + newstate.constantTime[index] + " minutes. ";
+	      		       }
+	      		       if (newstate.flashlight == false){
+		      		       newstate.whomoved = newstate.constantTime[firstperson] + " and " + newstate.constantTime[secondperson] +" go back in " + newstate.constantTime[index] + " minutes. ";
+	      		       }
+				
+			}
+
+				System.out.println(newstate.toString());
+				
+		}
+			
+		 }
+}
+}
+}

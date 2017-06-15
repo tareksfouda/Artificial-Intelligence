@@ -1,0 +1,12 @@
+
+public class variable {
+String [] domain;
+int starting_cell;
+
+public variable(String [] domain, int starting_cell){
+	for(int i=0;i< domain.length;i++){
+		this.domain[i]=domain[i];
+		this.starting_cell=starting_cell;
+	}
+}
+}

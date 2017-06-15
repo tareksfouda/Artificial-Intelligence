@@ -1,0 +1,18 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class test {
+	int ID = 1;
+	
+	public static void main(String [] args){
+Queue<state> ct = new LinkedList();
+ct.add();
+ct.add("b");
+ct.add("c");
+
+//ct.remove();
+System.out.println(ct.element());
+//System.out.println(x);
+
+	}
+}

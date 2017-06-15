@@ -1,0 +1,9 @@
+public class test 
+{ 
+    public static void main(String []args){
+    	int j = 9;
+    	j=++j;
+    	System.out.println(j);
+    	System.out.println(j);
+    }
+}

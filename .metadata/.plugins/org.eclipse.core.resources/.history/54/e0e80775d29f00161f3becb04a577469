@@ -1,0 +1,15 @@
+
+public class variable {
+public int id;
+public String[] dictionary;
+
+public variable ( int id ,String[] dictionary){
+	int size =  dictionary.length;
+	this.dictionary = new String[size];
+	for(int i=0;i<dictionary.length;i++){
+		this.dictionary[i] = dictionary[i];
+	
+	}
+	this.id = id;
+}
+}

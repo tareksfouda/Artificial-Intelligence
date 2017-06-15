@@ -1,0 +1,26 @@
+
+public class test {
+public static void main(String [] args){
+	boolean[] test = new boolean[4];
+	for (int i =0;i<4;i++){
+		test[i]=false;
+		System.out.print(test[i] + " ");
+		
+	}
+
+	System.out.print("\n ");
+
+	boolean[] test2 = new boolean[4];
+	for (int i = 0;i<4;i++){
+		test2[i]= !test[i];
+		for(int j = i+1;j<4;j++){
+			
+			for(int k = j+1;k<4;k++){
+				
+				
+			}
+				
+		}
+	}
+}
+}

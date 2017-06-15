@@ -1,0 +1,73 @@
+public class state {
+	
+	boolean[] sides;
+	boolean flashlight; // 0 left and 1 right
+	int[] constantTime;
+	static int count;
+	int parentid;
+	int id;
+	
+	state(){
+		parentid = 0;
+		flashlight = false;
+		count ++;
+		this.id=count;
+		}
+	
+	
+	state(boolean[] sides, boolean flashlight, int[] constantTime, int parentid){
+		count++;
+		this.sides = new boolean[sides.length];
+		for(int i=0;i<sides.length;i++){
+			this.sides[i] = this.sides[i];
+			//this.constantTime[i] = constantTime[i];
+		}
+		
+		this.id =count;
+		this.parentid =parentid;
+		this.flashlight = flashlight;
+		
+	}
+	
+	
+
+	public static void main(String[] args){
+		boolean[] rootarray = {false,false,false,false};
+		boolean flashlight = false;
+		int[] constTime ={1,2,5,10};
+		int parentid=0;
+		state root= new state(rootarray,flashlight,constTime,parentid);
+		movebfs(root);
+
+	}
+
+
+	public static void movebfs(state root) {
+		// TODO Auto-generated method stub
+		int size = root.sides.length;
+		
+
+		for(int i=0;i<size;i++){
+			state newstate= new state();
+			//copy node
+			newstate.flashlight=root.flashlight;
+			for(int p=0;p<size;p++){
+				newstate.sides[p]=root.sides[p];
+			}
+			//endofcopying
+			for(int j =0;j<size;j++){
+            if(newstate.sides[j] == newstate.flashlight ){
+            	newstate.sides[j]= !root.sides[j];
+            	newstate.flashlight =!root.flashlight;
+            }
+			}
+			//test loop
+			for(int k= 0;k<size;k++){
+				System.out.print(newstate.sides[k] + ",,, flash light = " + newstate.flashlight);
+				
+			}
+		}
+		
+			
+		 }
+}

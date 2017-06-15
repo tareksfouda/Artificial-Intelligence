@@ -1,0 +1,447 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class task2 {
+   static String[] domain1 = new String[5];
+    static String[] domain2 = new String[5];
+    static String[] domain3 = new String[5];
+    static String[] domain4 = new String[5]; // size 4
+    static String[] domain5 = new String[5]; // size 4
+  static  String[] domain6 = new String[5]; // size 3
+   static String[] domain7 = new String[5]; // size 3
+    static String[] domain8 = new String[5];
+    static variable[] variables= new variable[8];
+    public static final int SOLID = -1000;
+    public static final int BLANK = -2000;
+    public int[][] board;
+    public int numOfWordsOnBoard; // from 1 to 8 in the small puzzle example
+    public Letter[][] currentwords; // same size as the board keeps track of every letter on the board and index to the array of dictionary
+    public String[] dictionary; // dictionary
+    public boolean[] usedwords;   //If dictionary[0] is somewhere in the board, usedwords[0] == true.
+    
+    // constructor of the class
+    public task2(int[][] board, String[] dictionary, int numOfWordsOnBoard) {
+
+        this.dictionary = new String[dictionary.length];
+        for(int j =0;j<dictionary.length;j++){
+        	this.dictionary[j]=dictionary[j];
+        }
+        //System.arraycopy(dictionary, 0, this.dictionary, 0, dictionary.length); // copy conteent of array in second array from 0 to dictionary.length
+        this.usedwords = new boolean[dictionary.length];
+
+        int numColumns = board[0].length;
+        this.board = new int[board.length][numColumns];
+ // filling the board with data initially
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+           this.board[i][j] = board[i][j];
+            }
+        }
+        // ending filling the board with data
+
+        this.currentwords = new Letter[board.length][numColumns];
+
+        this.numOfWordsOnBoard = numOfWordsOnBoard;
+    }
+    // end of constructor
+
+    public void applyValue(int wordIndex, int spaceNumber) {
+        int[] spacestart = getSpaceStart(spaceNumber);
+
+        int row = spacestart[0];
+        int col = spacestart[1];
+
+        int spaceSize = getSpaceSize(spaceNumber);
+        boolean isAcross = board[row][col] > 0;
+        int domainlength =0;
+        int k=0;
+        for( k=0;k<8;k++){
+        	if(variables[k].id ==spaceNumber){
+        		 domainlength = variables[k].dictionary.length;
+        		break;
+        	}
+        }
+        Letter[] ltrs = Letter.lettersFromString(variables[k].dictionary[wordIndex], wordIndex);
+
+        for (int i = 0; i < spaceSize; i++) {
+            if (currentwords[row][col] == null) {
+                currentwords[row][col] = ltrs[i];
+            }
+
+            if (isAcross) {
+                col += 1;
+            } else {
+                row += 1;
+            }
+        }
+
+        usedwords[wordIndex] = true;
+    }
+    
+
+    public void removeValue(int wordIndex, int spaceNumber) {
+    	//System.out.println("came here");
+        int[] spaceCoord = getSpaceStart(spaceNumber);
+
+        int row = spaceCoord[0];
+        int col = spaceCoord[1];
+
+        int spaceSize = getSpaceSize(spaceNumber);
+        boolean isAcross = board[row][col] > 0;
+
+        for (int i = 0; i < spaceSize; i++) {
+            if (currentwords[row][col] != null &&
+                currentwords[row][col].wordIndex == wordIndex)
+            {
+                currentwords[row][col] = null;
+            }
+
+            if (isAcross) {
+                col += 1;
+            } else {
+                row += 1;
+            }
+        }
+
+        usedwords[wordIndex] = false;
+    }
+
+ 
+    public boolean isValid(int wordIndex, int wordplace) {
+        int spaceSize = getSpaceSize(wordplace);
+        int domainlength =0;
+        int i =0;
+        for(i=0;i<8;i++){
+        	if(variables[i].id ==wordplace){
+        		 domainlength = variables[i].dictionary.length;
+        		break;
+        	}
+        }
+        return variables[i].dictionary[wordIndex].length() == spaceSize &&
+               intersectionsMatch(wordIndex, wordplace);
+    }
+
+ 
+    public boolean intersectionsMatch(int wordIndex, int spaceNumber) { // 
+        int[] spacestart = getSpaceStart(spaceNumber);
+        int row = spacestart[0];
+        int col = spacestart[1];
+
+        int spaceSize = getSpaceSize(spaceNumber);
+        boolean isAcross = board[row][col] > 0;
+        
+        int domainlength =0;
+        int k=0;
+        for( k=0;k<8;k++){
+        	if(variables[k].id ==spaceNumber){
+        		 domainlength = variables[k].dictionary.length;
+        		break;
+        	}
+        }
+        String word = variables[k].dictionary[wordIndex];
+
+        for (int i = 0; i < spaceSize; i++) {
+            if (currentwords[row][col] != null &&
+                currentwords[row][col].character != word.charAt(i)) // if the letter not equal null and not equal the word's character
+            {
+                return false;
+            }
+
+            if (isAcross) {
+                col += 1;
+            } else {
+                row += 1;
+            }
+        }
+
+        return true;
+    }
+
+    
+
+    public int getSpaceSize(int spaceNumber) {
+        int[] spacestart = getSpaceStart(spaceNumber);
+
+
+        int row = spacestart[0];
+        int column = spacestart[1];
+
+        boolean isAcross = board[row][column] > 0; // if positive then across
+
+        int size;
+
+        if (isAcross) {
+            size = board[0].length - column;
+        } else {
+            size = board.length - row;
+        }
+
+
+        int i;
+        for (i = 0; i < size; i++) {
+            if (isAcross && board[row][column + i] == SOLID) {
+                break;
+            }
+
+            if (!isAcross && board[row + i][column] == SOLID) {
+                break;
+            }
+        }
+
+        return i;
+    }
+
+    public int[] getSpaceStart(int spaceNumber) { // array of size 2, x and y on the board, the start cell of the space number
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == BLANK || board[i][j] == SOLID) {
+                    continue;
+                }
+
+                if (Math.abs(board[i][j]) == spaceNumber) {
+                    int[] result = new int[2];
+                    result[0] = i;
+                    result[1] = j;
+                    return result;
+                }
+            }
+        }
+
+        return null;
+    }
+    
+  
+    
+    //recursion method
+    public void findSolution() {
+        
+        findSolution(6); // solutoon for the smallest 
+
+    }
+    public void findSolution(int wordplace) {  // word place is from 1 to 8
+        if (wordplace == 1000) {  // if all the wordplaces are assigned to words
+            System.out.println(this.toString() + "hjhb");
+            return;
+        }
+        int domainlength = 0;
+for(int i=0;i<8;i++){
+	if(variables[i].id ==wordplace){
+		 domainlength = variables[i].dictionary.length;
+		break;
+	}
+}
+    
+        
+            for (int index = 0; index < domainlength; index++) { //skip  if the word is already used
+                if (usedwords[index]) {
+                    continue;
+                    
+                }
+
+                if (isValid(index, wordplace)) {
+                    
+                    applyValue(index, wordplace);
+                    System.out.println(wordplace + "bew");
+                    int newvalue = getNextminimum(wordplace);
+                    findSolution(newvalue);
+                    removeValue(index, wordplace);
+                   
+                }
+            }
+        
+        
+
+    }
+
+
+
+
+
+    public String toString() {
+        String s = "";
+
+        for (int i = 0; i < board.length; i++) {
+
+            // add border line between rows
+            if (i > 0) {
+                for (int k = 0; k < board[i].length; k++) {
+                    if (k == board[i].length - 1) {
+                        s += "---";
+                    } else {
+                        s += "---+";
+                    }
+                }
+
+                s += "\n";
+            }
+
+            // add squares to row
+            for (int j = 0; j < board[i].length; j++) {
+                char ch = ' ';
+
+                if (board[i][j] == SOLID) {
+                    ch = '#';
+                } else {
+                    if (currentwords[i][j] == null) {
+                        // the blank is not occupied by a letter
+                        ch = ' ';
+                    } else {
+                        // the blank is filled in with a letter
+                        ch = currentwords[i][j].character;
+                        ch = Character.toUpperCase(ch);
+                    }
+                }
+
+                if (j == board[i].length - 1) {
+                    s += " " + ch;
+                } else {
+                    s += " " + ch + " |";
+                }
+            }
+
+            s += "\n";
+
+        }
+
+        return s;
+    }
+
+
+    public static void main(String[] args) throws Exception {
+      int[][] board = { { 1,     BLANK, -2,    BLANK, -3    },
+                          { SOLID, SOLID, BLANK, SOLID, BLANK },
+                          { SOLID, 4,     BLANK, -5,    BLANK },
+                          { -6,    SOLID, 7,     BLANK, BLANK },
+                          { 8,     BLANK, BLANK, BLANK, BLANK },
+                         { BLANK, SOLID, SOLID, BLANK, SOLID } };
+
+        int wordlocations = 8;
+
+
+       String[] dictionary = { "aft", "laser", "ale", "lee", "eel", "line",
+                           "heel", "sails", "hike", "sheet", "hoses", 
+                           "steer", "keel", "tie", "knot" };
+
+       
+       task2 result = new task2(board, dictionary, wordlocations);
+       int m=0;
+       int l=0;
+       int n=0;
+       for(int i=0;i<15;i++){
+    	   switch (dictionary[i].length()){
+    	   case 3:
+    		   domain6[m] = dictionary[i];
+    		   domain7[m] = dictionary[i];
+    		   m++;
+    		   break;
+    	   case 4:
+    		   domain4[l] = dictionary[i];
+    		   domain5[l] = dictionary[i];
+    		   l++;
+    		   break;
+    	   case 5: 
+    		   domain1[n] = dictionary[i];
+    		   domain2[n] = dictionary[i];
+    		   domain3[n] = dictionary[i];
+    		   domain8[n] = dictionary[i];
+    		   n++;
+    	   }
+    		   
+       }
+       variable v1 = new variable(1,domain1);
+       variable v2 = new variable(2,domain2);
+       variable v3 = new variable(3,domain3);
+       variable v4 = new variable(4,domain4);
+       variable v5 = new variable(5,domain5);
+       variable v6 = new variable(6,domain6);
+       variable v7 = new variable(7,domain7);
+       variable v8 = new variable(8,domain8);
+       
+       
+variables[0]=v1;
+variables[1]=v2;
+variables[2]=v3;
+variables[3]=v4;
+variables[4]=v5;
+variables[5]=v6;
+variables[6]=v7;
+variables[7]=v8;
+        
+        result.findSolution();
+      
+    	
+    	
+ /* 	String [] dictionary = new String[21120];
+    	FileReader file = new FileReader("C:/Users/tfouda.CS.001/Desktop/words.txt");
+    	BufferedReader reader = new BufferedReader(file);
+    	String line = reader.readLine();
+    	int i = 0;
+   */
+  /*	while(i<21120){
+  		String line2 ="";
+  		 line2 = line.replaceAll("\\s+","");
+    		dictionary[i] = (String)(line2); 
+    		i++;
+    		line = reader.readLine();
+    	}
+  	
+*/
+ //int wordlocations = 33;
+ 
+/* int[][] board = {  {SOLID,SOLID,-1,-2, -3 , SOLID , SOLID , SOLID,-4,-5,-6,SOLID,SOLID},
+		 			{SOLID,7,BLANK,BLANK,BLANK,-8,SOLID,9,BLANK,BLANK,BLANK,-10,SOLID},
+		 			{SOLID,11,BLANK,BLANK,BLANK,BLANK,SOLID,12,BLANK,BLANK,BLANK,BLANK,SOLID},
+		 			{13,BLANK,BLANK,SOLID,14,BLANK,-15,BLANK,BLANK,SOLID,-16,BLANK,-17},
+		 			{18,BLANK,BLANK,-19,SOLID,20,BLANK,BLANK,SOLID,21,BLANK,BLANK,BLANK},
+		 			{22,BLANK,BLANK,BLANK,SOLID,23,BLANK,BLANK,SOLID,24,BLANK,BLANK,BLANK},
+		 			{SOLID,25,BLANK,BLANK,-26,SOLID,SOLID,SOLID,27,BLANK,BLANK,BLANK,SOLID},
+		 			{SOLID,SOLID,28,BLANK,BLANK,-29,SOLID,30,BLANK,BLANK,BLANK,SOLID,SOLID},
+		 			{SOLID,SOLID,SOLID,31,BLANK,BLANK,-32,BLANK,BLANK,BLANK,SOLID,SOLID,SOLID},
+		 			{SOLID,SOLID,SOLID,SOLID,33,BLANK,BLANK,BLANK,BLANK,SOLID,SOLID,SOLID,SOLID},
+		 			{SOLID,SOLID,SOLID,SOLID,SOLID,BLANK,BLANK,BLANK,SOLID,SOLID,SOLID,SOLID,SOLID},
+		 			{SOLID,SOLID,SOLID,SOLID,SOLID,SOLID,BLANK,SOLID,SOLID,SOLID,SOLID,SOLID,SOLID}
+		 
+ };*/
+ 
+ //test result = new test(board, dictionary, wordlocations);
+ //result.findSolution();
+ 
+    }
+    
+    public  int getNextminimum(int x){
+    	switch(x){
+    	case 6:
+    		//System.out.print("7");
+    		return 7;
+    		
+    	case 7:
+    	//	System.out.print("5");
+    		return 5;
+    		
+    	case 5:
+    		//System.out.print("4");
+    		return 4;
+    	case 4:
+    		//System.out.print("3");
+    		return 3;
+    	case 3: 
+    		//System.out.print("2");
+    		return 2;
+    	case 2: 
+    		//System.out.print("8");
+    		return 8;
+    	case 8: 
+    	//	System.out.print("1");
+    		return 1;
+    		
+    	}
+		return 1000 ;
+    }
+
+    
+}
+

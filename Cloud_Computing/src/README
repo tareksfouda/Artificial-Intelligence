@@ -1,0 +1,7 @@
+- This is programming project for Cloud computing class fall 2016.
+-To run the program, go to Simulation.java and run because it has the main method. All other files are classes that are used in the Simulation.java file.
+- More information regarding the algorithm and the details of the project are in the report explained.
+- Keep in mind that this program requires an input file called test.txt, this input file contains all the available times for all of the cars (7680).
+The path of this file is written in Simulation.java line 536. You will have to change the path depending on where the file would be on your machine.
+- Keep in mind also that the output of this program simply creates a textfile and displays all the important information in this file, the path of the required
+output file would be in Simulation.java line 641.

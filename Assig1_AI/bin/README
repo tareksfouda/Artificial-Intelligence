@@ -1,0 +1,63 @@
+This program is implemented by Tarek Fouda.
+It has three different methods: movebfs, movedfs and moveucs.
+
+The input of the start state should be enetered manually in the main method (Line 70,71,72).
+
+To choose which search technique you want to implement,you will have to comment the other unwanted two methods.
+They are in the main method line 85,86,87.
+
+For example:
+If you want to implement BFS,uncomment line 85. And comment lines 86 and 87.
+
+		movebfs(root,fringe);
+		//movedfs(root,fringe2);
+		//moveucs(root,fringe3);
+		
+		
+		
+		
+The code of the BFS and the UCS gets the optimal solution.
+The DFS gets the first solution found.
+
+
+Maximum number of N to be handled is 14. After 14, it will take more than three minutes to be computed.
+
+
+
+
+BFS:
+
+Number of crossers         Execution time(ms)
+4							5
+5							12
+6							30
+7							126
+8							593
+9							3539
+10							2066
+15							> 2 mins
+
+
+DFS:
+
+Number of crossers         Execution time(ms)
+4							6
+5							9
+6							23
+7							60
+8							221
+9							1544
+10							5770
+15							> 2 mins
+
+
+UCS:
+Number of crossers         Execution time(ms)
+4							7
+5							12
+6							29
+7							107
+8							470
+9							2303
+10							12030
+15							> 2 mins

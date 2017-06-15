@@ -1,0 +1,27 @@
+http://www.codeproject.com/Articles/804991/Bridge-Crossing-Puzzles-Optimal-Strategy
+
+http://mark.goadrich.com/courses/csc396s08/projects/project1.html
+
+http://doc.gold.ac.uk/~mas01sd/classes/jpf_release/test/gov/nasa/jpf/mc/Crossing.java
+
+
+
+-----------------
+
+http://www.java2s.com/Code/Java/Collections-Data-Structure/TreeNode.htm
+
+
+http://mark.goadrich.com/courses/csc396s08/projects/CupsNode.java
+http://mark.goadrich.com/courses/csc396s08/projects/Cup.java
+
+
+https://git.cs.colorado.edu/csci7135-analysis-s16/project-anna/blob/6ad71d04cb748f73ee3aef07fd6700674d31cf61/project/core/src/examples/Crossing.java
+
+
+
+
+
+________________________________________________________________________________________________
+ASSIG 2 NQUEENS HILL
+
+https://github.com/nbsquires/EightQueens/blob/master/README

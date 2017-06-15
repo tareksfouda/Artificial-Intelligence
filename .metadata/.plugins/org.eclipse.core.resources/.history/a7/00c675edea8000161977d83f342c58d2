@@ -1,0 +1,70 @@
+public class state {
+	
+	boolean[] sides;
+	int flashlight; // 0 left and 1 right
+	int[] constantTime;
+	static int count;
+	int parentid;
+	int id;
+	
+	state(){
+		parentid = 0;
+		flashlight = 0;
+		count ++;
+		this.id=count;
+		}
+	
+	
+	state(boolean[] sides, int flashlight, int[] constantTime, int parentid){
+		count++;
+		this.sides = new boolean[sides.length];
+		for(int i=0;i<sides.length;i++){
+			this.sides[i] = this.sides[i];
+			this.constantTime[i] = constantTime[i];
+		}
+		
+		this.id =count;
+		this.parentid =parentid;
+		this.flashlight = flashlight;
+		
+	}
+	
+	
+
+	public static void main(String[] args){
+		state root= new state();
+		movebfs(root);
+
+	}
+
+
+	public static void movebfs(state root) {
+		// TODO Auto-generated method stub
+		int size = root.sides.length;
+		state newstate = new state();
+		for (int i = 0;i<size;i++){
+			for(int j = i+1;j<size;j++){
+				for(int k = i;k<size;k++){
+					
+					
+				}
+					
+			}
+		}
+				/*0000
+				
+				1000
+				1100
+				1010
+				1001
+				0100
+				0010
+				0001
+				0101
+				0011*/
+			
+		
+		
+		
+	}
+}
